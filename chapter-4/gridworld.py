@@ -45,11 +45,12 @@ class GridWorld:
             size (int): the dimension of the grid in each direction
             cell_reward (float): the reward return after extiting any non absorbing state
         """
+        self.size = size
         self.state_value = np.zeros((size, size))
         return
 
     def reset(self):
-        self.state_value = np.zeros((size, size))
+        self.state_value = np.zeros((self.size, self.size))
         return
 
     def step(self, state, action):
@@ -126,7 +127,7 @@ def policy_evaluation(env, policy=None, steps=1, discount=1., in_place=False):
                 # apply bellman expectation equation to each state
                 state = (i, j)
                 value = env.bellman_expectation(state, policy[i, j], discount)
-                values[i, j] = value * discount
+                values[i, j] = value
         # set the new value table
         env.state_value = values
     return env.state_value
